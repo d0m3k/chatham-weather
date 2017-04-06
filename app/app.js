@@ -1,14 +1,18 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', [
+  angular.module('chathamWeather', [
   'ngRoute',
-  'myApp.view1',
-  'myApp.view2',
-  'myApp.version'
-]).
+  'chathamWeather.helloView',
+  'chathamWeather.dashboard',
+  'chathamWeather.apiService']).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
-
-  $routeProvider.otherwise({redirectTo: '/view1'});
+    $routeProvider.when('/', {
+        templateUrl: 'views/view1.html',
+        controller: 'View1Ctrl'
+    }).when('/dashboard', {
+        templateUrl: 'views/view2.html',
+        controller: 'View2Ctrl'
+    }).otherwise({redirectTo: '/'});
 }]);

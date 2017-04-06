@@ -1,0 +1,11 @@
+<h1>Chatham Weather</h1>
+
+<label>Pick a city.<br/>
+    <input type="text" data-ng-model="search.city" data-ng-change="filterCities()">
+</label>
+
+<div id="cityResults" data-ng-show="search.results.length>0">
+    <ul>
+        <li data-ng-repeat="city in search.results">{{ city.description }}</li>
+    </ul>
+</div>
