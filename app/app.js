@@ -3,16 +3,18 @@
 // Declare app level module which depends on views, and components
   angular.module('chathamWeather', [
   'ngRoute',
-  'chathamWeather.helloView',
+  'chathamWeather.cityList',
   'chathamWeather.dashboard',
-  'chathamWeather.apiService']).
+  'chathamWeather.apiService',
+  'chathamWeather.temperature',
+  'chathamWeather.localStorageService']).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
-    $routeProvider.when('/', {
-        templateUrl: 'views/view1.html',
-        controller: 'View1Ctrl'
-    }).when('/dashboard', {
-        templateUrl: 'views/view2.html',
-        controller: 'View2Ctrl'
-    }).otherwise({redirectTo: '/'});
+    $routeProvider.when('/dashboard/:placeId?', {
+        templateUrl: 'views/dashboard.html',
+        controller: 'dashboardController'
+    }).when('/locations', {
+        templateUrl: 'views/cityList.html',
+        controller: 'cityListController'
+    }).otherwise({redirectTo: '/dashboard'});
 }]);

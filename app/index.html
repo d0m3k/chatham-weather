@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="chathamWeather" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="chathamWeather" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="chathamWeather" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="chathamWeather" class="no-js"> <!--<![endif]-->
+
+<!-- TODO - separate another controller that would deal with menu and title-->
+<html lang="en" data-ng-app="chathamWeather" data-ng-controller="cityListController" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
+  <title>{{ title }} Chatham Weather</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
@@ -15,16 +14,17 @@
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
-  <ul class="menu">
-    <li><a href="#!/">hello view</a></li>
-    <li><a href="#!/dashboard">dashboard</a></li>
-  </ul>
 
-  <!--[if lt IE 7]>
+  <!--[if lt IE 9]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
+  <ul class="menu">
+    <li><a href="#!/locations">locations</a></li>
+    <li data-ng-repeat="(id, city) in savedCities"> <a href="#!/dashboard/{{id}}">{{ city.description }}</a> </li>
+  </ul>
 
-  <div ng-view id="ngView" style="margin:2rem"></div>
+  <div data-ng-view id="ngView" style="margin:2rem">
+  </div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
@@ -33,7 +33,9 @@
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="app.js"></script>
   <script src="services/apiService.js"></script>
-  <script src="controllers/view1.js"></script>
-  <script src="controllers/view2.js"></script>
+  <script src="services/localStorageService.js"></script>
+  <script src="directives/temperature.js"></script>
+  <script src="controllers/cityListController.js"></script>
+  <script src="controllers/dashboardController.js"></script>
 </body>
 </html>

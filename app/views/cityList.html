@@ -5,7 +5,10 @@
 </label>
 
 <div id="cityResults" data-ng-show="search.results.length>0">
-    <ul>
-        <li data-ng-repeat="city in search.results">{{ city.description }}</li>
-    </ul>
+    <table>
+        <tr data-ng-repeat="city in search.results">
+            <td>{{ city.description }} </td> <td> <button data-ng-click="addCity(city)">Add</button></td>
+        </tr>
+    </table>
 </div>
+
