@@ -1,14 +1,16 @@
-<h1>Chatham Weather</h1>
+<div data-ng-controller="cityListController">
+    <h1>Chatham Weather</h1>
 
-<label>Pick a city.<br/>
+    <label>Pick a city.<br/>
     <input type="text" data-ng-model="search.city" data-ng-change="filterCities()">
 </label>
 
-<div id="cityResults" data-ng-show="search.results.length>0">
-    <table>
-        <tr data-ng-repeat="city in search.results">
-            <td>{{ city.description }} </td> <td> <button data-ng-click="addCity(city)">Add</button></td>
-        </tr>
-    </table>
+    <div id="cityResults" data-ng-show="search.results.length>0">
+        <table>
+            <tr data-ng-repeat="city in search.results">
+                <td>{{ city.description }} </td>
+                <td> <button data-ng-click="addCity(city)">Add</button></td>
+            </tr>
+        </table>
+    </div>
 </div>
-

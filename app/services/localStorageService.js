@@ -8,10 +8,10 @@ Storage.prototype.getObject = function(key) {
 };
 
 /* saved cities are stored as:
- "default" = "Kraków, Polska"
+ "default" = "[place_id]"
    var cities = {
 
-       "Kraków, Polska": {
+       "[place_id]": {
            place_id: "ChIJLwPMoJm1RIYRetVp1EtGm10",
            description: "Kraków, Polska",
            latitude: "50.06465009999999",
@@ -27,6 +27,8 @@ angular.module('chathamWeather.localStorageService', [])
     // TODO - handle not having local storage
     // TODO - handle removing
     // TODO - handle changing default
+    // TODO - enhance error handling; in case of getting default, fe. errors should be thrown if not found;
+    // TODO - fallback to cookies if LS not available
     // above should probably be done by another viewController, that would alter list. Or maybe modal?
     this.getCityList = function () {
         var storage = localStorage.getObject("cityList");
@@ -53,5 +55,23 @@ angular.module('chathamWeather.localStorageService', [])
        storage.cities[city.place_id] = city;
        localStorage.setObject("cityList", storage);
     };
+
+    this.setIsCelsius = function (isCelsius) {
+        localStorage.setItem("tempInC", isCelsius);
+    }
+
+    this.getIsCelsius = function () {
+        var item = localStorage.getItem("tempInC");
+        return item==='true';
+    }
+
+    this.setProvider = function (provider) {
+        localStorage.setItem("provider", provider);
+    }
+
+    this.getProvider = function () {
+        var item = localStorage.getItem("provider");
+        return item || "FORECAST_IO";
+    }
 
 });

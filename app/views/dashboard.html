@@ -12,8 +12,17 @@
 
 <div data-ng-show="city">
     <h1>{{city.description}}</h1>
-    <p><i>{{city.place_id}}</i> {{city.latitude}}, {{city.longitude}}</p>
 
+    <div class="formatSettings">
+        <ul>
+            <li><span class="desc">temperatures</span> 
+            <span data-ng-class="{'bold': !isCelsius}" ng-click="setTemp('F')">°F</span> | 
+            <span data-ng-class="{'bold': isCelsius}"  ng-click="setTemp('C')">°C </span></li>
+            <li><span class="desc">provider</span>
+            <span data-ng-class="{'bold': provider=='WORLD_WEATHER'}" ng-click="setProvider('W')">World Weather Online</span> | 
+            <span data-ng-class="{'bold': provider=='FORECAST_IO'}" ng-click="setProvider('F')">Forecast.io</span> </li>
+        </ul>
+    </div>
 
     <div data-ng-hide="forecast">
         <i>Fetching forecast for {{city.description}}...</i>
@@ -22,18 +31,18 @@
     <div data-ng-show="forecast">
         <div class="today">
             <h1>Forecast for today</h1>
-            <h2>{{forecast.currently.temperature}} °F</h2>
-            <h3>feels like {{forecast.currently.apparentTemperature}} °F</h3>
+            <h2>{{forecast.currently.temperature | temp:isCelsius }}</h2>
+            <h3>feels like {{forecast.currently.apparentTemperature | temp:isCelsius}}</h3>
             <p>Humidity: {{forecast.currently.humidity * 100}} %</p>
             <p>{{forecast.currently.pressure}} hPa</p>
             <p>Cloud cover: {{forecast.currently.cloudCover}}</p>
         </div>
 
         <div class="future">
-            <div data-ng-repeat="cast in forecast.futureForecasts" style="display:inline-block; margin: 1rem">
+            <div class="single" data-ng-repeat="cast in forecast.futureForecasts">
                 <h1>Forecast for {{cast.date}}</h1>
-                <h2>{{cast.temperatureMin}} – {{cast.temperatureMax}} °F</h2>
-                <h3>feels like {{cast.apparentTemperatureMin}} – {{cast.apparentTemperatureMax}} °F</h3>
+                <h2>{{cast.temperatureMin | temp:isCelsius:true}} – {{cast.temperatureMax | temp:isCelsius}}</h2>
+                <h3>feels like <span ng-hide=provider=='WORLD_WEATHER'>{{cast.apparentTemperatureMin | temp:isCelsius:true}} – </span>{{cast.apparentTemperatureMax | temp:isCelsius}}</h3>
                 <p>Humidity: {{cast.humidity * 100}} %</p>
                 <p>{{cast.pressure}} hPa</p>
                 <p>Cloud cover: {{cast.cloudCover}}</p>

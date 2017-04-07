@@ -2,24 +2,33 @@
 
 .menu {
   list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+  border: 0.1em solid black;
+  float: right;
+  margin: 2rem;
+  padding: 2rem;
+  max-width: 480px;
+  width: 100%
 }
 
-.menu:before {
-  content: "[";
+.formatSettings ul {
+  list-style: none;
 }
 
-.menu:after {
-  content: "]";
-}
-
-.menu > li {
+.formatSettings>ul>li {
   display: inline;
+  margin-right: 1rem
 }
 
-.menu > li + li:before {
-  content: "|";
-  padding-right: 0.3em;
+.formatSettings .desc {
+  font-size: 0.8em;
+  color: gray;
+}
+
+.bold {
+  font-weight: bold
+}
+
+.future>.single {
+  display: inline-block;
+  margin: 1rem
 }
