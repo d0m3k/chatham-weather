@@ -8,9 +8,7 @@ Storage.prototype.getObject = function (key) {
 };
 
 /* saved cities are stored as:
- "default" = "[place_id]"
-   var cities = {
-
+   cities : {
        "[place_id]": {
            place_id: "ChIJLwPMoJm1RIYRetVp1EtGm10",
            description: "Kraków, Polska",
@@ -22,11 +20,9 @@ Storage.prototype.getObject = function (key) {
 
 angular.module('chathamWeather.localStorageService', [])
     .service('localStorageService', function () {
-
-        //    single city is stored as
         // TODO - handle not having local storage
         // TODO - fallback to cookies if LS not available
-        // above should probably be done by another viewController, that would alter list. Or maybe modal?
+
         this.getCityList = function () {
             var storage = localStorage.getObject("cityList");
             return storage && storage.cities;
@@ -38,7 +34,7 @@ angular.module('chathamWeather.localStorageService', [])
 
         this.setDefaultId = function (place_id) {
             localStorage.setItem("defaultCity", place_id);
-        }
+        };
 
         this.getCityDetails = function (place_id) {
             var storage = localStorage.getObject("cityList");
@@ -84,20 +80,20 @@ angular.module('chathamWeather.localStorageService', [])
 
                 localStorage.setObject("cityList", storage);
             }
-        }
+        };
 
         this.setIsCelsius = function (isCelsius) {
             localStorage.setItem("tempInC", isCelsius);
-        }
+        };
 
         this.getIsCelsius = function () {
             var item = localStorage.getItem("tempInC");
             return item === 'true';
-        }
+        };
 
         this.setProvider = function (provider) {
             localStorage.setItem("provider", provider);
-        }
+        };
 
         this.getProvider = function () {
             var item = localStorage.getItem("provider");
