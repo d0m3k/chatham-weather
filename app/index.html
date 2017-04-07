@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 
-<!-- TODO - separate another controller that would deal with menu and title-->
 <html lang="en" data-ng-app="chathamWeather" data-ng-controller="cityListController" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ title }} Chatham Weather</title>
+  <title>{{ pageTitle }} Chatham Weather</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -16,9 +15,14 @@
   <!--[if lt IE 9]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-  <ul class="menu">
-    <li><strong><a href="#!/locations">+ edit locations</a></strong></li>
-    <li data-ng-repeat="(id, city) in savedCities"> <a href="#!/dashboard/{{id}}">{{ city.description }}</a> </li>
+  <ul class="menu" data-ng-mouseenter="opts=true" data-ng-mouseleave="opts=false">
+    <li><strong><a href="#!/locations">+ add locations</a></strong></li>
+    <li data-ng-repeat="(id, city) in savedCities"> <a href="#!/dashboard/{{id}}">{{ city.description }}</a> 
+    <span data-ng-show="opts">[
+      <i data-ng-show="id==defaultId">default </i>
+      <span data-ng-hide="id==defaultId" ng-click="setDefault(id)">set as default</span> |
+      <span ng-click="removeCity(id)">remove</span>
+    ]</div></li>
   </ul>
 
   <div data-ng-view id="ngView" style="margin:2rem">

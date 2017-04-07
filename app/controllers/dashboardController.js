@@ -1,11 +1,32 @@
 'use strict';
 
 angular.module('chathamWeather.dashboard', [])
-  .controller('dashboardController', ['$scope', '$routeParams', 'localStorageService', 'apiService',
-    function ($scope, $routeParams, localStorageService, apiService) {
+  .controller('dashboardController', ['$scope', '$rootScope', '$routeParams', 'localStorageService', 'apiService',
+    function ($scope, $rootScope, $routeParams, localStorageService, apiService) {
 
-      setUpData();
       init();
+
+      function init() {
+        if ($routeParams.placeId) { 
+          $scope.currentCityId = $routeParams.placeId;
+        } else {
+          $scope.currentCityId = localStorageService.getDefaultId();
+        }
+        
+        if(!$scope.currentCityId) return;
+
+        $scope.isCelsius = localStorageService.getIsCelsius();
+        $scope.provider = localStorageService.getProvider();
+
+        try {
+          $scope.city = localStorageService.getCityDetails($scope.currentCityId);
+          $rootScope.pageTitle = $scope.city.description + " | ";
+          getForecast();
+        } catch (err) {
+          console.log(err);
+          cityFallback();
+        }
+      }
 
       function getForecast() {
         apiService
@@ -13,18 +34,6 @@ angular.module('chathamWeather.dashboard', [])
           .then(function (r) {
             $scope.forecast = r.data;
           });
-      }
-
-      function setUpData() {
-        $scope.currentCityId = $routeParams.placeId;
-
-        $scope.isCelsius = localStorageService.getIsCelsius();
-        $scope.provider = localStorageService.getProvider();
-
-        if (!$scope.currentCityId) {
-          $scope.currentCityId = localStorageService.getDefaultId();
-        }
-        $scope.city = localStorageService.getCityDetails($scope.currentCityId);
       }
 
       //in case there is no current town in ls...
@@ -35,22 +44,17 @@ angular.module('chathamWeather.dashboard', [])
             if (r.data.status === "INVALID_REQUEST") {
               $scope.error = true;
             } else {
+              var city = r.data.result;
               $scope.city = {};
               $scope.city.place_id = $scope.currentCityId;
-              $scope.city.description = r.data.result.formatted_address;
-              $scope.city.latitude = r.data.result.geometry.location.lat;
-              $scope.city.longitude = r.data.result.geometry.location.lng;
+              $scope.city.description = city.formatted_address;
+              $scope.city.latitude = city.geometry.location.lat;
+              $scope.city.longitude = city.geometry.location.lng;
+              $rootScope.pageTitle = $scope.city.description + " | ";
 
               getForecast();
             }
           });
-      }
-
-      function init() {
-        if (!$scope.city)
-          cityFallback();
-        else
-          getForecast();
       }
 
       $scope.setTemp = function (temp) {

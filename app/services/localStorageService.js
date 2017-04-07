@@ -1,8 +1,8 @@
-Storage.prototype.setObject = function(key, value) {
+Storage.prototype.setObject = function (key, value) {
     this.setItem(key, JSON.stringify(value));
 };
 
-Storage.prototype.getObject = function(key) {
+Storage.prototype.getObject = function (key) {
     var value = this.getItem(key);
     return value && JSON.parse(value);
 };
@@ -21,57 +21,87 @@ Storage.prototype.getObject = function(key) {
  */
 
 angular.module('chathamWeather.localStorageService', [])
-    .service('localStorageService', function() {
+    .service('localStorageService', function () {
 
-    //    single city is stored as
-    // TODO - handle not having local storage
-    // TODO - handle removing
-    // TODO - handle changing default
-    // TODO - enhance error handling; in case of getting default, fe. errors should be thrown if not found;
-    // TODO - fallback to cookies if LS not available
-    // above should probably be done by another viewController, that would alter list. Or maybe modal?
-    this.getCityList = function () {
-        var storage = localStorage.getObject("cityList");
-        return storage && storage.cities;
-    };
+        //    single city is stored as
+        // TODO - handle not having local storage
+        // TODO - fallback to cookies if LS not available
+        // above should probably be done by another viewController, that would alter list. Or maybe modal?
+        this.getCityList = function () {
+            var storage = localStorage.getObject("cityList");
+            return storage && storage.cities;
+        };
 
-    this.getDefaultId = function () {
-        var storage = localStorage.getObject("cityList");
-        return storage && storage.default;
-    };
+        this.getDefaultId = function () {
+            return localStorage.getItem("defaultCity");
+        };
 
-    this.getCityDetails = function (place_id) {
-        var storage = localStorage.getObject("cityList");
-        return storage && storage.cities[place_id];
-    };
+        this.setDefaultId = function (place_id) {
+            localStorage.setItem("defaultCity", place_id);
+        }
 
-    this.addCity = function (city) {
-       var storage = localStorage.getObject("cityList");
-       if(storage == null) {
-           storage = {};
-           storage.cities = {};
-           storage.default = city.place_id;
-       }
-       storage.cities[city.place_id] = city;
-       localStorage.setObject("cityList", storage);
-    };
+        this.getCityDetails = function (place_id) {
+            var storage = localStorage.getObject("cityList");
+            try {
+                return storage.cities[place_id];
+            } catch (err) {
+                console.log("Didn't get city!");
+                throw "No city in storage.";
+            }
+        };
 
-    this.setIsCelsius = function (isCelsius) {
-        localStorage.setItem("tempInC", isCelsius);
-    }
+        this.addCity = function (city) {
+            var storage = localStorage.getObject("cityList");
+            if (storage == null) {
+                storage = {};
+                storage.cities = {};
+                this.setDefaultId(city.place_id);
+            }
+            storage.cities[city.place_id] = city;
+            localStorage.setObject("cityList", storage);
+        };
 
-    this.getIsCelsius = function () {
-        var item = localStorage.getItem("tempInC");
-        return item==='true';
-    }
+        function getFirst(list) {
+            return Object.keys(list)[0];
+        }
 
-    this.setProvider = function (provider) {
-        localStorage.setItem("provider", provider);
-    }
+        function isEmpty(list) {
+            return Object.keys(list).length == 0;
+        }
 
-    this.getProvider = function () {
-        var item = localStorage.getItem("provider");
-        return item || "FORECAST_IO";
-    }
+        this.removeCity = function (place_id) {
+            var storage = localStorage.getObject("cityList");
+            if (!storage)
+                throw "No city list; removing impossible";
 
-});
+            delete storage.cities[place_id];
+
+            if (isEmpty(storage.cities)) {
+                localStorage.clear();
+            } else {
+                if (this.getDefaultId() == place_id)
+                    this.setDefaultId(getFirst(storage.cities));
+
+                localStorage.setObject("cityList", storage);
+            }
+        }
+
+        this.setIsCelsius = function (isCelsius) {
+            localStorage.setItem("tempInC", isCelsius);
+        }
+
+        this.getIsCelsius = function () {
+            var item = localStorage.getItem("tempInC");
+            return item === 'true';
+        }
+
+        this.setProvider = function (provider) {
+            localStorage.setItem("provider", provider);
+        }
+
+        this.getProvider = function () {
+            var item = localStorage.getItem("provider");
+            return item || "FORECAST_IO";
+        }
+
+    });
