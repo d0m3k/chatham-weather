@@ -42,6 +42,11 @@ angular.module('chathamWeather.cityList', [])
             function init() {
                 $rootScope.savedCities = localStorageService.getCityList();
                 $rootScope.defaultId = localStorageService.getDefaultId();
+                var def = $rootScope.savedCities[$rootScope.defaultId];
+                apiService.getForecast(def.longitude, def.latitude, localStorageService.getProvider())
+                    .then(function(r) {
+                        $rootScope.homeForecast = r.data.currently;
+                    })
             }
         }
     ]);

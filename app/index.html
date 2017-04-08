@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" data-ng-app="chathamWeather" data-ng-controller="cityListController" class="no-js">
+<html lang="en" ng-cloak data-ng-app="chathamWeather" data-ng-controller="cityListController" class="no-js">
 
 <head>
     <meta charset="utf-8">
@@ -20,19 +20,29 @@
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-    <ul class="menu" data-ng-mouseenter="opts=true" data-ng-mouseleave="opts=false">
-        <li><strong><a href="#!/locations">+ add locations</a></strong></li>
-        <li data-ng-repeat="(id, city) in savedCities"><a href="#!/dashboard/{{id}}">{{ city.description }}</a>
-            <span data-ng-show="opts">
-            <span data-ng-show="id==defaultId" class="fa-stack fa-fw" title="Current default">
-                <i class="fa fa-fw fa-stack-1x fa-square"></i>
-                <i class="fa fa-fw fa-stack-1x fa-home fa-inverse"></i>
-            </span>
-            <i data-ng-hide="id==defaultId" class="fa fa-fw fa-home" title="Set as default" data-ng-click="setDefault(id)"></i>
-            <i data-ng-click="removeCity(id)" class="fa fa-fw fa-trash" title="Delete city"></i>
-            </span>
-        </li>
-    </ul>
+    <div class="menu-bar" data-ng-mouseenter="opts=true" data-ng-mouseleave="opts=false">
+        <h1><a href="#"><i class="fa fa-sun-o"></i> Chatham&nbsp;Weather</a></h1>
+
+        <span class="home-location">
+            <a href="#!/dashboard/{{defaultId}}"><span data-ng-show="opts" class="def">home location</span>{{savedCities[defaultId].description}}</a> 
+            <!-- TODO - argh, things started to clash here! It becomes necessary to build shared scope (maybe some service?) that will keep/provide
+               shared data for controllers.!  -->
+            {{ homeForecast.temperature | temp:true }}
+                <i data-ng-class="{'cloak': !opts}" data-ng-click="removeCity(defaultId)" class="fa fa-fw fa-trash" title="Delete city"></i>
+        </span>
+
+        <ul class="menu">
+            <li><strong><a style="margin-right:1rem" href="#!/locations">+ add locations</a></strong></li>
+            <li data-ng-repeat="(id, city) in savedCities" data-ng-show="id!=defaultId">
+                <a href="#!/dashboard/{{id}}">{{ city.description }}</a>
+                <span data-ng-class="{'cloak': !opts}" >
+                    <i data-ng-hide="id==defaultId" class="fa fa-fw fa-home" title="Set as default" data-ng-click="setDefault(id)"></i>
+                    <i data-ng-click="removeCity(id)" class="fa fa-fw fa-trash" title="Delete city"></i>
+                </span>
+            </li>
+        </ul>
+
+    </div>
 
     <div data-ng-view id="ngView" style="margin:2rem">
     </div>

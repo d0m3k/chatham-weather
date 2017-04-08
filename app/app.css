@@ -1,13 +1,55 @@
 /* app css stylesheet */
 
+.menu-bar {
+  padding: 1rem;
+  color: white;
+  background-color: #2A373E;
+  border-bottom: 1px solid;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.menu-bar a {
+  color: #C4CFD4;
+}
+
+.home-location {
+  white-space: nowrap;
+}
+
+.menu-bar>h1 {
+  font-size: 3rem;
+  display: inline;
+  white-space: nowrap;
+  margin: 0 1em 0 0;
+  font-family: San Francisco, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular', sans-serif;
+}
+
+.menu-bar>h1>a {
+  color: white;
+  text-decoration: none
+}
+
 .menu {
   list-style: none;
-  border: 0.1em solid black;
   float: right;
-  margin: 2rem;
-  padding: 2rem;
-  max-width: 480px;
-  width: 100%
+  text-align: right;
+  width: auto;
+  margin: 0
+}
+
+.def {
+  position: absolute;
+  margin-top: 2.5em;
+  font-size: 0.5em;
+  color: #C4CFD4;
+  text-transform: uppercase;
+}
+
+.menu>li {
+  display: inline;
+  white-space: nowrap;
 }
 
 .formatSettings ul {
@@ -39,4 +81,25 @@
 
 .wi-fc [class*="night"] {
   color: #03A9F4
+}
+
+.cloak {
+  visibility: hidden;
+}
+
+.city-list {
+  /*text-align: center;*/
+  max-width: 640px;
+  margin: 5% auto;
+}
+
+.city-list label {
+  font-size: 5rem;
+  width: 100%;
+}
+
+.city-list table {
+  border: none;
+  font-size: 3rem;
+  width: 100%
 }
