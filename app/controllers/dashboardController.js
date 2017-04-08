@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('chathamWeather.dashboard', [])
-    .controller('dashboardController', ['$scope', '$rootScope', '$routeParams', 'localStorageService', 'apiService',
-        function ($scope, $rootScope, $routeParams, localStorageService, apiService) {
+    .controller('dashboardController', ['$scope', '$routeParams', 'localStorageService', 'apiService',
+        function ($scope, $routeParams, localStorageService, apiService) {
             init();
 
             $scope.setTemp = function (temp) {

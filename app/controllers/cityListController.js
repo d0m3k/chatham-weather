@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('chathamWeather.cityList', [])
-    .controller('cityListController', ['$scope', '$rootScope', '$location', 'apiService', 'localStorageService',
-        function ($scope, $rootScope, $location, apiService, localStorageService) {
+    .controller('cityListController', ['$scope', '$rootScope', 'apiService', 'localStorageService',
+        function ($scope, $rootScope, apiService, localStorageService) {
             init();
             document.title = "Chatham Weather";
 

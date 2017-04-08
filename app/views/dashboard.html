@@ -15,37 +15,41 @@
 
     <div class="formatSettings">
         <ul>
-            <li><span class="desc">temperatures</span> 
-            <span data-ng-class="{'bold': !isCelsius}" data-ng-click="setTemp('F')">°F</span> |
-            <span data-ng-class="{'bold': isCelsius}"  data-ng-click="setTemp('C')">°C </span></li>
-            <li><span class="desc">provider</span>
-            <span data-ng-class="{'bold': provider=='WORLD_WEATHER'}" data-ng-click="setProvider('W')">World Weather Online</span> |
-            <span data-ng-class="{'bold': provider=='FORECAST_IO'}" data-ng-click="setProvider('F')">Forecast.io</span> </li>
+            <li><i class="fa fa-thermometer-half fa-fw" title="Temperature format"></i>
+                <span data-ng-class="{'bold': !isCelsius}" data-ng-click="setTemp('F')">°F</span> |
+                <span data-ng-class="{'bold': isCelsius}"  data-ng-click="setTemp('C')">°C </span></li>
+            <li><i class="fa fa-rss fa-fw" title="Forecast provider"></i>
+                <span data-ng-class="{'bold': provider=='WORLD_WEATHER'}" data-ng-click="setProvider('W')">World Weather Online</span> |
+                <span data-ng-class="{'bold': provider=='FORECAST_IO'}" data-ng-click="setProvider('F')">Forecast.io</span> 
+            </li>
         </ul>
     </div>
 
     <div data-ng-hide="forecast">
+        <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
         <i>Fetching forecast for {{city.description}}...</i>
     </div>
 
     <div data-ng-show="forecast">
         <div class="today">
             <h1>Forecast for today</h1>
-            <h2>{{forecast.currently.temperature | temp:isCelsius }}</h2>
+            <h2><i class="wi wi-day-sunny wi-fc"></i> {{forecast.currently.temperature | temp:isCelsius }}</h2>
             <h3>feels like {{forecast.currently.apparentTemperature | temp:isCelsius}}</h3>
-            <p>Humidity: {{forecast.currently.humidity * 100}} %</p>
-            <p>{{forecast.currently.pressure}} hPa</p>
-            <p>Cloud cover: {{forecast.currently.cloudCover}}</p>
+            <p><i class="wi wi-humidity" title="Humidity"></i> {{forecast.currently.humidity * 100 | number:0}}%</p>
+            <p><i class="wi wi-barometer" title="Pressure"></i> {{forecast.currently.pressure}} hPa</p>
+            <p><i class="wi wi-cloud" title="Cloud cover"></i> {{forecast.currently.cloudCover * 100 | number:0}}%</p>
         </div>
 
         <div class="future">
             <div class="single" data-ng-repeat="cast in forecast.futureForecasts">
                 <h1>Forecast for {{cast.date}}</h1>
-                <h2>{{cast.temperatureMin | temp:isCelsius:true}} – {{cast.temperatureMax | temp:isCelsius}}</h2>
-                <h3>feels like <span data-ng-hide=provider=='WORLD_WEATHER'>{{cast.apparentTemperatureMin | temp:isCelsius:true}} – </span>{{cast.apparentTemperatureMax | temp:isCelsius}}</h3>
-                <p>Humidity: {{cast.humidity * 100}} %</p>
-                <p>{{cast.pressure}} hPa</p>
-                <p>Cloud cover: {{cast.cloudCover}}</p>
+                <h2><i class="wi wi-day-sunny" title="Daytime"></i> {{cast.temperatureMax | temp:isCelsius}}</h2>
+                <h4><i class="fa fa-moon-o" title="Nighttime"></i> {{cast.temperatureMin | temp:isCelsius}}</h4>
+                <h4>feels like {{cast.apparentTemperatureMax | temp:isCelsius}} 
+                    <span data-ng-hide=provider=='WORLD_WEATHER'>(<i class="fa fa-moon-o" title="Nighttime"></i> {{cast.apparentTemperatureMin | temp:isCelsius}})</span></h4>
+                <p><i class="wi wi-humidity" title="Humidity"></i> {{cast.humidity * 100}}%</p>
+                <p><i class="wi wi-barometer" title="Pressure"></i>  {{cast.pressure}} hPa</p>
+                <p><i class="wi wi-cloud" title="Cloud cover"></i> {{cast.cloudCover * 100 | number:0}}%</p>
             </div>
         </div>
     </div>

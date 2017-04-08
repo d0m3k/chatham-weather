@@ -32,3 +32,11 @@
   display: inline-block;
   margin: 1rem
 }
+
+.wi-fc {
+  color: #FF9800
+}
+
+.wi-fc [class*="night"] {
+  color: #03A9F4
+}
