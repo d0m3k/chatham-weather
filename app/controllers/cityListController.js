@@ -24,7 +24,7 @@ angular.module('chathamWeather.cityList', [])
                         city.longitude = r.data.result.geometry.location.lng;
 
                         localStorageService.addCity(city);
-                        $rootScope.$emit('updateMenu', city);
+                        $rootScope.$emit('updateMenu');
                     });
             };
 

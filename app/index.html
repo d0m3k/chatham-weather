@@ -23,7 +23,7 @@
     <div data-ng-controller="menuController" class="menu-bar" data-ng-mouseenter="opts=true" data-ng-mouseleave="opts=false">
         <h1><a href="#"><i class="fa fa-sun-o"></i> Chatham&nbsp;Weather</a></h1>
 
-        <span class="home-location">
+        <span class="home-location" ng-show="defaultId">
             <a href="#!/dashboard/{{defaultId}}"><span data-ng-show="opts" class="def">home location</span>{{savedCities[defaultId].description}}</a>
             <span ng-class="{'cloak': !homeForecast}">{{ homeForecast.currently.temperature | temp:isCelsius }}</span>
             <i data-ng-class="{'cloak': !opts}" data-ng-click="removeCity(defaultId)" class="fa fa-fw fa-trash" title="Delete city"></i>
@@ -52,6 +52,7 @@ In production use:
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-cache/dist/angular-cache.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app.js"></script>
     <script src="services/apiService.js"></script>

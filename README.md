@@ -7,14 +7,15 @@ This project is using Chatham weather API (as defined [here][api]) to provide it
 Features include:
 * Ability to filter cities with provided predictions;
 * Adding cities to your favourites list for further faster reference (and cool dashboard look);
-* Setting and managing the default location, loaded on application startup;
+* Setting and managing the default location, loaded on application startup with current forecast information conveniently provided on the locations bar;
+* Autorefreshing of forecasts;
 * Having configurable whether user prefers °C or °F, 12/24h time and their forecast provider: Forecast.io or World Weather.
 
 ## Technicalities
 
 Project uses Angular in version `1.5.11`, as provided by `bower` bootstrapped from [seed app][seed]. [Bootstrap][bootstrap] is used for convenient responsiveness magic. [Font Awesome][fa] provides some UI icons, and [Weather Icons][weather-icons] are used for enhancing forecasts with nice weathery iconography.
 
-User preferences are being held in local storage of their browser.
+User preferences are being held in local storage of their browser. Downloaded data is being cached; in case of forecast data, [angular-cache] is used to invalidate cached data after 30 seconds. Application autorefreshes forecast data each minute.
 
 ## Getting to work
 
@@ -41,6 +42,7 @@ Browse to the app at [`http://localhost:8000/`][localhost]. You should now see *
 [api]: https://github.com/Chatham/fe-test-task
 [seed]: https://github.com/angular/angular-seed
 [angularjs]: https://angularjs.org/
+[angular-cache]: https://github.com/jmdobry/angular-cache
 [bootstrap]: https://getbootstrap.com/
 [fa]: http://fontawesome.io/
 [weather-icons]: https://erikflowers.github.io/weather-icons/

@@ -1,10 +1,14 @@
 'use strict';
 
 angular.module('chathamWeather.menu', [])
-    .controller('menuController', ['$scope', '$rootScope', 'apiService', 'localStorageService',
-        function ($scope, $rootScope, apiService, localStorageService) {
+    .controller('menuController', ['$scope', '$rootScope', '$interval', 'apiService', 'localStorageService',
+        function ($scope, $rootScope, $interval, apiService, localStorageService) {
             document.title = "Chatham Weather";
             init();
+
+            $rootScope.$on('updateMenu', function () {
+                init();
+            });
 
             $scope.setDefault = function (place_id) {
                 localStorageService.setDefaultId(place_id);
@@ -17,16 +21,14 @@ angular.module('chathamWeather.menu', [])
                 init();
             };
 
-            $rootScope.$on('updateMenu', function (){
-                init();
-            });
+            function getDefaultWeather() {
+                $scope.isCelsius = localStorageService.getIsCelsius();
+                $scope.provider = localStorageService.getProvider();
 
-            function getDefaultWeather () {
-              $scope.isCelsius = localStorageService.getIsCelsius();
-              $scope.provider = localStorageService.getProvider();
+                if (!$scope.defaultId) return;
 
-              var def = $scope.savedCities[$scope.defaultId];
-              apiService
+                var def = $scope.savedCities[$scope.defaultId];
+                apiService
                     .getForecast(def.latitude, def.longitude, $scope.provider)
                     .then(function (r) {
                         $scope.homeForecast = r.data;
@@ -38,5 +40,14 @@ angular.module('chathamWeather.menu', [])
                 $scope.defaultId = localStorageService.getDefaultId();
                 getDefaultWeather();
             }
+
+            var refreshInterval = $interval(function() {
+                console.log("Refreshing menu!");
+                getDefaultWeather();
+            }, 60*1000);
+
+            $scope.$on('$destroy', function(){
+                $interval.cancel(refreshInterval);
+            });
         }
     ]);

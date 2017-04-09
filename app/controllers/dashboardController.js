@@ -1,19 +1,21 @@
 'use strict';
 
 angular.module('chathamWeather.dashboard', [])
-    .controller('dashboardController', ['$scope', '$routeParams', 'localStorageService', 'apiService',
-        function ($scope, $routeParams, localStorageService, apiService) {
+    .controller('dashboardController', ['$scope', '$rootScope', '$interval', '$routeParams', 'localStorageService', 'apiService',
+        function ($scope, $rootScope, $interval, $routeParams, localStorageService, apiService) {
             init();
 
             $scope.setTemp = function (temp) {
                 $scope.isCelsius = temp === "C";
                 localStorageService.setIsCelsius($scope.isCelsius);
+                $rootScope.$emit('updateMenu');
                 init();
             };
 
             $scope.setProvider = function (provider) {
                 $scope.provider = provider === "F" ? "FORECAST_IO" : "WORLD_WEATHER";
                 localStorageService.setProvider($scope.provider);
+                $rootScope.$emit('updateMenu');
                 init();
             };
 
@@ -65,5 +67,14 @@ angular.module('chathamWeather.dashboard', [])
                     cityFallback();
                 }
             }
+
+            var refreshInterval = $interval(function() {
+                console.log("Refreshing dash!");
+                getForecast();
+            }, 60*1000);
+
+            $scope.$on('$destroy', function(){
+                $interval.cancel(refreshInterval);
+            });
         }
     ]);
