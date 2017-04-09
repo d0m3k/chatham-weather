@@ -3,6 +3,7 @@
 // Declare app level module which depends on views, and components
   angular.module('chathamWeather', [
   'ngRoute',
+  'chathamWeather.menu',
   'chathamWeather.cityList',
   'chathamWeather.dashboard',
   'chathamWeather.apiService',

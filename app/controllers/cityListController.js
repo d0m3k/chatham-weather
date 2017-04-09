@@ -3,7 +3,6 @@
 angular.module('chathamWeather.cityList', [])
     .controller('cityListController', ['$scope', '$rootScope', 'apiService', 'localStorageService',
         function ($scope, $rootScope, apiService, localStorageService) {
-            init();
             document.title = "Chatham Weather";
 
             $scope.filterCities = function () {
@@ -25,28 +24,9 @@ angular.module('chathamWeather.cityList', [])
                         city.longitude = r.data.result.geometry.location.lng;
 
                         localStorageService.addCity(city);
-                        init();
+                        $rootScope.$emit('updateMenu', city);
                     });
             };
 
-            $scope.setDefault = function (place_id) {
-                localStorageService.setDefaultId(place_id);
-                $rootScope.defaultId = localStorageService.getDefaultId();
-            };
-
-            $scope.removeCity = function (place_id) {
-                localStorageService.removeCity(place_id);
-                init();
-            };
-
-            function init() {
-                $rootScope.savedCities = localStorageService.getCityList();
-                $rootScope.defaultId = localStorageService.getDefaultId();
-                var def = $rootScope.savedCities[$rootScope.defaultId];
-                apiService.getForecast(def.longitude, def.latitude, localStorageService.getProvider())
-                    .then(function(r) {
-                        $rootScope.homeForecast = r.data.currently;
-                    })
-            }
         }
     ]);

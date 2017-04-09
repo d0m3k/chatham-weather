@@ -67,20 +67,12 @@
 }
 
 .bold {
-  font-weight: bold
+  font-weight: bold;
 }
 
 .future>.single {
   display: inline-block;
-  margin: 1rem
-}
-
-.wi-fc {
-  color: #FF9800
-}
-
-.wi-fc [class*="night"] {
-  color: #03A9F4
+  margin: 1rem;
 }
 
 .cloak {
@@ -88,7 +80,6 @@
 }
 
 .city-list {
-  /*text-align: center;*/
   max-width: 640px;
   margin: 5% auto;
 }
@@ -99,7 +90,14 @@
 }
 
 .city-list table {
-  border: none;
   font-size: 3rem;
-  width: 100%
+  width: 100%;
+}
+
+.wi-fc {
+  color: #FF9800;
+}
+
+.wi-fc [class*="night"] {
+  color: #03A9F4;
 }
