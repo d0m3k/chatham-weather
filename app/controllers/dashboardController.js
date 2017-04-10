@@ -54,6 +54,21 @@ angular.module('chathamWeather.dashboard', [])
                 }
             }
 
+            $scope.addCity = function (city) {
+                localStorageService.addCity(city);
+                 $rootScope.$emit('updateMenu');
+            }
+
+            $scope.removeCity = function (city) {
+                 localStorageService.removeCity(city.place_id);
+                 $rootScope.$emit('updateMenu');
+            }
+
+            $scope.setDefault = function (place_id) {
+                 localStorageService.setDefaultId(place_id);
+                 $rootScope.$emit('updateMenu');
+            }
+
             var refreshInterval = $interval(function() {
                 console.log("Refreshing dash!");
                 getForecast();

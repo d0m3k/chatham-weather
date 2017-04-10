@@ -12,19 +12,19 @@ angular.module('chathamWeather.menu', [])
 
             $scope.setTemp = function (temp) {
                 $rootScope.isCelsius = temp === "C";
-                localStorageService.setIsCelsius($scope.isCelsius);
+                localStorageService.setIsCelsius($rootScope.isCelsius);
                 init();
             };
 
             $scope.setProvider = function (provider) {
                 $rootScope.provider = provider === "F" ? "FORECAST_IO" : "WORLD_WEATHER";
-                localStorageService.setProvider($scope.provider);
+                localStorageService.setProvider($rootScope.provider);
                 init();
             };
 
             $scope.setDefault = function (place_id) {
                 localStorageService.setDefaultId(place_id);
-                $scope.defaultId = localStorageService.getDefaultId();
+                $rootScope.defaultId = localStorageService.getDefaultId();
                 init();
             };
 
@@ -50,8 +50,8 @@ angular.module('chathamWeather.menu', [])
             }
 
             function init() {
-                $scope.savedCities = localStorageService.getCityList();
-                $scope.defaultId = localStorageService.getDefaultId();
+                $rootScope.savedCities = localStorageService.getCityList();
+                $rootScope.defaultId = localStorageService.getDefaultId();
                 getDefaultWeather();
             }
 

@@ -24,8 +24,8 @@
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-    <div data-ng-controller="menuController" class="menu-bar container-fluid" data-ng-mouseenter="opts=true" data-ng-mouseleave="opts=false">
-        <div class="row">
+    <div data-ng-controller="menuController" class="container-fluid" data-ng-mouseenter="opts=true" data-ng-mouseleave="opts=false">
+        <div class="row menu-bar">
             <div class="col-xs-12 col-lg-4">
                 <h1><a href="#"><i class="fa fa-sun-o"></i> Chatham&nbsp;Weather</a></h1>
             </div>
@@ -44,24 +44,24 @@
                         <span data-ng-class="{'bold': !isCelsius}" data-ng-click="setTemp('F')">°F</span> |
                         <span data-ng-class="{'bold': isCelsius}" data-ng-click="setTemp('C')">°C </span></li>
                     <li><i class="fa fa-rss fa-fw" title="Forecast provider"></i>
-                        <span data-ng-class="{'bold': provider=='WORLD_WEATHER'}" data-ng-click="setProvider('W')">World Weather Online</span>                |
+                        <span data-ng-class="{'bold': provider=='WORLD_WEATHER'}" data-ng-click="setProvider('W')">World Weather Online</span>                        |
                         <span data-ng-class="{'bold': provider=='FORECAST_IO'}" data-ng-click="setProvider('F')">Forecast.io</span>
                     </li>
                 </ul>
             </div>
+        </div>
 
-            <div class="col-xs-12 col-lg-8">
-                <ul class="menu">
-                    <li><strong><a style="margin-right:1rem" href="#!/locations">+ add locations</a></strong></li>
-                    <li data-ng-repeat="(id, city) in savedCities" data-ng-show="id!=defaultId">
-                        <a href="#!/dashboard/{{id}}">{{ city.description }}</a>
-                        <span data-ng-class="{'cloak': !opts}">
+        <div>
+            <ul class="menu">
+                <li><strong><a style="margin-right:1rem" href="#!/locations"><i class="fa fa-fw fa-map"></i> view other locations</a></strong></li>
+                <li data-ng-repeat="(id, city) in savedCities" data-ng-show="id!=defaultId">
+                    <a href="#!/dashboard/{{id}}">{{ city.description }}</a>
+                    <span data-ng-class="{'cloak': !opts}">
                             <i data-ng-hide="id==defaultId" class="fa fa-fw fa-home" title="Set as default" data-ng-click="setDefault(id)"></i>
                             <i data-ng-click="removeCity(id)" class="fa fa-fw fa-trash" title="Delete city"></i>
                         </span>
-                    </li>
-                </ul>
-            </div>
+                </li>
+            </ul>
         </div>
     </div>
 

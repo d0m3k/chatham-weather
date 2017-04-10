@@ -28,5 +28,10 @@ angular.module('chathamWeather.cityList', [])
                     });
             };
 
+            $scope.removeCity = function (city) {
+                 localStorageService.removeCity(city.place_id);
+                 $rootScope.$emit('updateMenu');
+            }
+
         }
     ]);

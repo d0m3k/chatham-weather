@@ -21,7 +21,12 @@
             <div class="today">
                 <div class="header">
                     <i weather-icon clouds="{{forecast.currently.cloudCover}}"></i>
-                    <span><h1>{{city.description}}</h1>
+                    <span><h1>{{city.description}} 
+                        <a data-ng-hide="savedCities[city.place_id]" data-ng-click="addCity(city)"><i class="fa fa-fw fa-star-o" title="Add to favourites"></i></a>
+                        <a data-ng-show="savedCities[city.place_id]" data-ng-click="removeCity(city)"><i class="fa fa-fw fa-star" title="Remove from favourites"></i></a>
+                        <a data-ng-hide="city.place_id==defaultId" data-ng-click="addCity(city);setDefault(city.place_id)"><i class="fa fa-fw fa-home" title="Set as default"></i></a>
+                        <i data-ng-show="city.place_id==defaultId" class="fa fa-fw fa-home" title="Current default"></i>
+                    </h1>
                     <h1 class="temperature">{{forecast.currently.temperature | temp:isCelsius }}</h1></span>
                 </div>
                 <div class="details">

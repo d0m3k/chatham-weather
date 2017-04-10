@@ -6,8 +6,12 @@
     <div id="cityResults" data-ng-show="search.results.length>0">
         <table class="table">
             <tr data-ng-repeat="city in search.results">
-                <td>{{ city.description }} </td>
-                <td> <a class="button" data-ng-click="addCity(city)">+</a></td>
+                <td><a href="#!/dashboard/{{city.place_id}}">{{ city.description }}</a></td>
+                <td> <a class="button" href="#!/dashboard/{{city.place_id}}"><i class="fa fa-fw fa-thermometer-3" title="See forecast"></i></a></td>
+                <td> 
+                    <a data-ng-hide="savedCities[city.place_id]" class="button" data-ng-click="addCity(city)"><i class="fa fa-fw fa-star-o" title="Add to favourites"></i></a>
+                    <a data-ng-show="savedCities[city.place_id]" class="button" data-ng-click="removeCity(city)"><i class="fa fa-fw fa-star" title="Remove from favourites"></i></a>
+                </td>
             </tr>
         </table>
     </div>
