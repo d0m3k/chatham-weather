@@ -137,3 +137,15 @@
 [class*="night"] {
   color: #03A9F4;
 }
+
+@media (max-width: 576px) {
+  .today>.header .wi-fc, .today>.header .temperature  {
+  font-size: 6rem;
+  margin-right:1rem;
+  }
+
+  .today>.details p {
+    margin-right:1rem;
+    font-size:14px;
+  }
+}
