@@ -1,6 +1,6 @@
 angular.module('chathamWeather.apiService',[])
 .service('apiService', ['$http', 'CacheFactory', function ($http, CacheFactory) {
-    this.apiAddr = "http://178.79.140.126/api";
+    this.apiAddr = "http://codingchallenge.chathamfinancial.com/api";
 
     CacheFactory('forecastCache', {
         deleteOnExpire: 'aggressive',

@@ -3,10 +3,12 @@
 [ng-click],
 [data-ng-click],
 [x-ng-click] {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-[ng\:cloak], [ng-cloak], .ng-cloak {
+[ng\:cloak],
+[ng-cloak],
+.ng-cloak {
   display: none !important;
 }
 
@@ -15,14 +17,11 @@
   color: white;
   background-color: #2A373E;
   border-bottom: 1px solid;
-  /*width: 100%;
-  display: flex;
-  align-items: center;*/
 }
 
 .menu-bar * {
-  margin-top:0;
-  margin-bottom:0;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .menu-bar a {
@@ -33,8 +32,8 @@
   white-space: nowrap;
 }
 
-.menu-bar>h1 {
-  font-size: 3rem;
+.menu-bar h1 {
+  font-size: 3.5rem;
   display: inline;
   white-space: nowrap;
   margin: 0 1em 0 0;
@@ -111,23 +110,23 @@
 }
 
 .today>.header h1 {
-  margin:0
+  margin: 0
 }
 
-.today>.header .wi-fc, .today>.header .temperature {
+.today>.header .wi-fc,
+.today>.header .temperature {
   font-size: 12rem;
-  margin-right:1rem;
+  margin-right: 1rem;
 }
-
 
 .today>.details {
-  display:flex;
+  display: flex;
   align-items: center;
 }
 
 .today>.details p {
-  margin-right:1rem;
-  font-size:2rem
+  margin-right: 1rem;
+  font-size: 2rem
 }
 
 .future>.single {
@@ -136,8 +135,8 @@
   margin: 1rem;
 }
 
-.future>.single h1{
-  margin-top:0;
+.future>.single h1 {
+  margin-top: 0;
 }
 
 .wi-fc {
@@ -149,13 +148,20 @@
 }
 
 @media (max-width: 576px) {
-  .today>.header .wi-fc, .today>.header .temperature  {
-  font-size: 6rem;
-  margin-right:1rem;
+  .today>.header .wi-fc,
+  .today>.header .temperature {
+    font-size: 6rem;
+    margin-right: 1rem;
   }
-
   .today>.details p {
-    margin-right:1rem;
-    font-size:14px;
+    margin-right: 1rem;
+    font-size: 14px;
+  }
+  .menu-bar h1 {
+    font-size: 2.5rem;
+    display: inline;
+    white-space: nowrap;
+    margin: 0 1em 0 0;
+    font-family: San Francisco, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular', sans-serif;
   }
 }

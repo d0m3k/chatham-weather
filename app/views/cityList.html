@@ -3,6 +3,10 @@
         <input id="cityInput" style="width:100%" type="text" data-ng-model="search.city" data-ng-change="filterCities()" autofocus>
     </label>
 
+    <div data-ng-show="serverError">
+        <h1>Something broke!</h1>
+        <p>There are problems with connection to the server. Check your Internet, or contact Weather API administrator for further help.
+    </div>
     <div ng-click="updateAddr()" id="cityResults" data-ng-show="search.results.length>0">
         <table class="table">
             <tr data-ng-repeat="city in search.results">

@@ -8,13 +8,19 @@ angular.module('chathamWeather.cityList', [])
 
             $scope.filterCities = function () {
                 apiService.searchByName($scope.search.city)
-                    .then(function (r) {
+                    .then(function (r) { //success handler
                         $scope.search.results = r.data.predictions;
+                        
+                        $scope.serverError = false;
+                    }, function (r) { ///failure handler
+                        $scope.serverError = true;
                     })
             };
 
             $scope.updateAddr = function () {
-                $route.updateParams({searchCity:$scope.search.city});
+                $route.updateParams({
+                    searchCity: $scope.search.city
+                });
             }
 
             $scope.search = {};

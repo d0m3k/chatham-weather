@@ -54,7 +54,6 @@ angular.module('chathamWeather.menu', [])
             }
 
             var refreshInterval = $interval(function() {
-                console.log("Refreshing menu!");
                 getDefaultWeather();
             }, 60*1000);
 

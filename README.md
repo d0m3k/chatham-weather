@@ -39,6 +39,15 @@ This will call `npm install` and `bower install`, which should take care of miss
 
 Browse to the app at [`http://localhost:8000/`][localhost]. You should now see *the future of forecasting*.
 
+### Running tests
+
+Since software not tested is never ready, just to be sure about some parts of chatham-weather, you can run Jasmine test in Karma runner (just as in [seed app][seed]) by running:
+
+```
+npm test
+```
+Karma will then start watching over any code changes, providing with tests results in console.
+
 [api]: https://github.com/Chatham/fe-test-task
 [seed]: https://github.com/angular/angular-seed
 [angularjs]: https://angularjs.org/

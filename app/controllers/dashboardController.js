@@ -8,8 +8,13 @@ angular.module('chathamWeather.dashboard', [])
             function getForecast() {
                 apiService
                     .getForecast($scope.city.latitude, $scope.city.longitude, $rootScope.provider)
-                    .then(function (r) {
+                    .then(function (r) { //success handler
                         $scope.forecast = r.data;
+
+                        $scope.invalidRequestError = false;
+                        $scope.serverFailError = false;
+                    }, function (r) { //failure handler
+                        $scope.serverFailError = true;
                     });
             }
 
@@ -18,7 +23,7 @@ angular.module('chathamWeather.dashboard', [])
                 apiService.getCityDetails($scope.currentCityId)
                     .then(function (r) {
                         if (r.data.status === "INVALID_REQUEST") {
-                            $scope.error = true;
+                            $scope.invalidRequestError = true;
                         } else {
                             var city = r.data.result;
                             $scope.city = {};
@@ -34,14 +39,13 @@ angular.module('chathamWeather.dashboard', [])
             }
 
             function init() {
-                console.log("ynyt");
                 if ($routeParams.placeId) {
                     $scope.currentCityId = $routeParams.placeId;
                 } else {
                     $scope.currentCityId = localStorageService.getDefaultId();
                 }
 
-                if (!$scope.currentCityId && !$scope.error) 
+                if (!$scope.currentCityId && !$scope.serverFailError && !$scope.invalidRequestError) 
                     window.location.replace("#!/locations");
 
                 $rootScope.isCelsius = localStorageService.getIsCelsius();
@@ -72,7 +76,6 @@ angular.module('chathamWeather.dashboard', [])
             }
 
             var refreshInterval = $interval(function() {
-                console.log("Refreshing dash!");
                 getForecast();
             }, 60*1000);
 

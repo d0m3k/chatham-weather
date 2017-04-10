@@ -1,49 +1,59 @@
 <div>
-    <div data-ng-show="error">
-        <h1>No weather for provided ID.</h1>
-
-        <p>Current link is broken. <a href="#!/">Return to basic version of dashboard</a> to fix it.</p>
+    <div data-ng-show="invalidRequestError || serverFailError">
+        <span ng-show="invalidRequestError">
+            <h1>No weather for provided ID.</h1>
+            <p>Current link is broken. <a href="#!/">Return to basic version of dashboard</a> to fix it.</p>
+        </span>
+        <span ng-show="serverFailError">
+            <h1>Server cannot respond!</h1>
+            <p>There is problem with getting response from server. Check your network, or contact administrator of the weather API.</p>
+        </span>
     </div>
 
-    <div data-ng-show="city">
-        <div data-ng-hide="forecast" style="display: flex; align-items: center;">
-            <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
-            <i>Fetching forecast for {{city.description}}...</i>
-        </div>
+    <div data-ng-show="error">
 
-        <div data-ng-show="forecast">
-            <div class="today">
-                <div class="header">
-                    <i weather-icon clouds="{{forecast.currently.cloudCover}}"></i>
-                    <span><h1>{{city.description}} 
+
+        <div data-ng-show="city">
+            <div data-ng-hide="forecast" style="display: flex; align-items: center;">
+                <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+                <i>Fetching forecast for {{city.description}}...</i>
+            </div>
+
+            <div data-ng-show="forecast">
+                <div class="today">
+                    <div class="header">
+                        <i weather-icon clouds="{{forecast.currently.cloudCover}}"></i>
+                        <span><h1>{{city.description}} 
                         <a data-ng-hide="savedCities[city.place_id]" data-ng-click="addCity(city)"><i class="fa fa-fw fa-star-o" title="Add to favourites"></i></a>
                         <a data-ng-show="savedCities[city.place_id]" data-ng-click="removeCity(city)"><i class="fa fa-fw fa-star" title="Remove from favourites"></i></a>
                         <a data-ng-hide="city.place_id==defaultId" data-ng-click="addCity(city);setDefault(city.place_id)"><i class="fa fa-fw fa-home" title="Set as default"></i></a>
                         <i data-ng-show="city.place_id==defaultId" class="fa fa-fw fa-home" title="Current default"></i>
                     </h1>
                     <h1 class="temperature">{{forecast.currently.temperature | temp:isCelsius }}</h1></span>
+                    </div>
+                    <div class="details">
+                        <p>Feels like {{forecast.currently.apparentTemperature | temp:isCelsius}}</p>
+                        <p><i class="wi wi-humidity" title="Humidity"></i> {{forecast.currently.humidity * 100 | number:0}}%</p>
+                        <p><i class="wi wi-barometer" title="Pressure"></i> {{forecast.currently.pressure}} hPa</p>
+                        <p><i class="wi wi-cloud" title="Cloud cover"></i> {{forecast.currently.cloudCover * 100 | number:0}}%</p>
+                    </div>
                 </div>
-                <div class="details">
-                    <p>Feels like {{forecast.currently.apparentTemperature | temp:isCelsius}}</p>
-                    <p><i class="wi wi-humidity" title="Humidity"></i> {{forecast.currently.humidity * 100 | number:0}}%</p>
-                    <p><i class="wi wi-barometer" title="Pressure"></i> {{forecast.currently.pressure}} hPa</p>
-                    <p><i class="wi wi-cloud" title="Cloud cover"></i> {{forecast.currently.cloudCover * 100 | number:0}}%</p>
-                </div>
-            </div>
 
-            <div class="future">
-                <h1>Future forecasts</h1>
-                <div class="single row" data-ng-repeat="cast in forecast.futureForecasts">
-                    <h1>{{cast.date}}</h1>
-                    <h1><i weather-icon clouds="{{cast.cloudCover}}" title="Daytime"></i> {{cast.temperatureMax | temp:isCelsius}}</h1>
-                    <h4><i weather-icon clouds="{{cast.cloudCover}}" night="true" title="Nighttime"></i> {{cast.temperatureMin | temp:isCelsius}}</h4>
-                    <h4>feels like {{cast.apparentTemperatureMax | temp:isCelsius}}
-                        <span data-ng-hide=provider=='WORLD_WEATHER'>(<i class="fa fa-moon-o" title="Nighttime"></i> {{cast.apparentTemperatureMin | temp:isCelsius}})</span></h4>
-                    <p><i class="wi wi-humidity" title="Humidity"></i> {{cast.humidity * 100}}%</p>
-                    <p><i class="wi wi-barometer" title="Pressure"></i> {{cast.pressure}} hPa</p>
-                    <p><i class="wi wi-cloud" title="Cloud cover"></i> {{cast.cloudCover * 100 | number:0}}%</p>
+                <div class="future">
+                    <h1>Future forecasts</h1>
+                    <div class="single row" data-ng-repeat="cast in forecast.futureForecasts">
+                        <h1 f-date date="{{cast.date}}" format="day"></h1>
+                        <h2>{{cast.date}}</h2>
+                        <h1><i weather-icon clouds="{{cast.cloudCover}}" title="Daytime"></i> {{cast.temperatureMax | temp:isCelsius}}</h1>
+                        <h4><i weather-icon clouds="{{cast.cloudCover}}" night="true" title="Nighttime"></i> {{cast.temperatureMin
+                            | temp:isCelsius}}</h4>
+                        <h4>feels like {{cast.apparentTemperatureMax | temp:isCelsius}}
+                            <span data-ng-hide=provider=='WORLD_WEATHER'>(<i class="fa fa-moon-o" title="Nighttime"></i> {{cast.apparentTemperatureMin | temp:isCelsius}})</span></h4>
+                        <p><i class="wi wi-humidity" title="Humidity"></i> {{cast.humidity * 100}}%</p>
+                        <p><i class="wi wi-barometer" title="Pressure"></i> {{cast.pressure}} hPa</p>
+                        <p><i class="wi wi-cloud" title="Cloud cover"></i> {{cast.cloudCover * 100 | number:0}}%</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
