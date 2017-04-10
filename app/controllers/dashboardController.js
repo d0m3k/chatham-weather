@@ -7,7 +7,7 @@ angular.module('chathamWeather.dashboard', [])
 
             function getForecast() {
                 apiService
-                    .getForecast($scope.city.latitude, $scope.city.longitude, $scope.provider)
+                    .getForecast($scope.city.latitude, $scope.city.longitude, $rootScope.provider)
                     .then(function (r) {
                         $scope.forecast = r.data;
                     });
@@ -34,13 +34,15 @@ angular.module('chathamWeather.dashboard', [])
             }
 
             function init() {
+                console.log("ynyt");
                 if ($routeParams.placeId) {
                     $scope.currentCityId = $routeParams.placeId;
                 } else {
                     $scope.currentCityId = localStorageService.getDefaultId();
                 }
 
-                if (!$scope.currentCityId) return;
+                if (!$scope.currentCityId && !$scope.error) 
+                    window.location.replace("#!/locations");
 
                 $rootScope.isCelsius = localStorageService.getIsCelsius();
                 $rootScope.provider = localStorageService.getProvider();

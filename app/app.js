@@ -16,7 +16,7 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
     $routeProvider.when('/dashboard/:placeId?', {
         templateUrl: 'views/dashboard.html',
         controller: 'dashboardController'
-    }).when('/locations', {
+    }).when('/locations/:searchCity?', {
         templateUrl: 'views/cityList.html',
         controller: 'cityListController'
     }).otherwise({redirectTo: '/dashboard'});

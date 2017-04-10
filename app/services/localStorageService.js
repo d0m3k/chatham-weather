@@ -74,6 +74,7 @@ angular.module('chathamWeather.localStorageService', [])
 
             if (isEmpty(storage.cities)) {
                 localStorage.removeItem("cityList");
+                localStorage.removeItem("defaultCity");
             } else {
                 if (this.getDefaultId() == place_id)
                     this.setDefaultId(getFirst(storage.cities));

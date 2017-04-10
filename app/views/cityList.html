@@ -1,9 +1,9 @@
-<div data-ng-controller="cityListController" class="city-list row">
+<div class="city-list row">
     <label>Pick a city.<br/>
-        <input id="cityInput" style="width:100%" type="text" data-ng-model="search.city" data-ng-change="filterCities()">
+        <input id="cityInput" style="width:100%" type="text" data-ng-model="search.city" data-ng-change="filterCities()" autofocus>
     </label>
 
-    <div id="cityResults" data-ng-show="search.results.length>0">
+    <div ng-click="updateAddr()" id="cityResults" data-ng-show="search.results.length>0">
         <table class="table">
             <tr data-ng-repeat="city in search.results">
                 <td><a href="#!/dashboard/{{city.place_id}}">{{ city.description }}</a></td>

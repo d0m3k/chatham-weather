@@ -1,14 +1,8 @@
 <div>
-    <div data-ng-hide="currentCityId">
-        <h1>No weather in nowhere.</h1>
-
-        <p><a href="#!/locations">Add some locations</a> in order to check your forecast.</p>
-    </div>
-
     <div data-ng-show="error">
         <h1>No weather for provided ID.</h1>
 
-        <p>Current link is broken. <a href="#!/">Return to basic version of dashboard</a> to <i>hopefully</i> fix it.</p>
+        <p>Current link is broken. <a href="#!/">Return to basic version of dashboard</a> to fix it.</p>
     </div>
 
     <div data-ng-show="city">

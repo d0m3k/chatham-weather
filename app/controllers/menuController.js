@@ -6,9 +6,7 @@ angular.module('chathamWeather.menu', [])
             document.title = "Chatham Weather";
             init();
 
-            $rootScope.$on('updateMenu', function () {
-                init();
-            });
+            $rootScope.$on('updateMenu', init);
 
             $scope.setTemp = function (temp) {
                 $rootScope.isCelsius = temp === "C";

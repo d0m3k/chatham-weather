@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('chathamWeather.cityList', [])
-    .controller('cityListController', ['$scope', '$rootScope', 'apiService', 'localStorageService',
-        function ($scope, $rootScope, apiService, localStorageService) {
+    .controller('cityListController', ['$scope', '$rootScope', '$route', '$routeParams', 'apiService', 'localStorageService',
+        function ($scope, $rootScope, $route, $routeParams, apiService, localStorageService) {
             document.title = "Chatham Weather";
+
 
             $scope.filterCities = function () {
                 apiService.searchByName($scope.search.city)
@@ -11,6 +12,15 @@ angular.module('chathamWeather.cityList', [])
                         $scope.search.results = r.data.predictions;
                     })
             };
+
+            $scope.updateAddr = function () {
+                $route.updateParams({searchCity:$scope.search.city});
+            }
+
+            $scope.search = {};
+            $scope.search.city = $routeParams.searchCity;
+            $scope.filterCities();
+
 
             $scope.addCity = function (prediction) {
                 var city = {
@@ -29,8 +39,8 @@ angular.module('chathamWeather.cityList', [])
             };
 
             $scope.removeCity = function (city) {
-                 localStorageService.removeCity(city.place_id);
-                 $rootScope.$emit('updateMenu');
+                localStorageService.removeCity(city.place_id);
+                $rootScope.$emit('updateMenu');
             }
 
         }
