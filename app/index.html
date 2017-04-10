@@ -20,26 +20,45 @@
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-    <div data-ng-controller="menuController" class="menu-bar" data-ng-mouseenter="opts=true" data-ng-mouseleave="opts=false">
-        <h1><a href="#"><i class="fa fa-sun-o"></i> Chatham&nbsp;Weather</a></h1>
+    <div data-ng-controller="menuController" class="menu-bar container-fluid" data-ng-mouseenter="opts=true" data-ng-mouseleave="opts=false">
+        <div class="row">
+            <div class="col-xs-12 col-lg-4">
+                <h1><a href="#"><i class="fa fa-sun-o"></i> Chatham&nbsp;Weather</a></h1>
+            </div>
 
-        <span class="home-location" ng-show="defaultId">
-            <a href="#!/dashboard/{{defaultId}}"><span data-ng-show="opts" class="def">home location</span>{{savedCities[defaultId].description}}</a>
-            <span ng-class="{'cloak': !homeForecast}">{{ homeForecast.currently.temperature | temp:isCelsius }}</span>
-            <i data-ng-class="{'cloak': !opts}" data-ng-click="removeCity(defaultId)" class="fa fa-fw fa-trash" title="Delete city"></i>
-        </span>
-
-        <ul class="menu">
-            <li><strong><a style="margin-right:1rem" href="#!/locations">+ add locations</a></strong></li>
-            <li data-ng-repeat="(id, city) in savedCities" data-ng-show="id!=defaultId">
-                <a href="#!/dashboard/{{id}}">{{ city.description }}</a>
-                <span data-ng-class="{'cloak': !opts}">
-                    <i data-ng-hide="id==defaultId" class="fa fa-fw fa-home" title="Set as default" data-ng-click="setDefault(id)"></i>
-                    <i data-ng-click="removeCity(id)" class="fa fa-fw fa-trash" title="Delete city"></i>
+            <div class="col-xs-12 col-lg-4">
+                <span class="home-location" ng-show="defaultId && savedCities">
+                    <a href="#!/dashboard/{{defaultId}}"><span data-ng-show="opts" class="def">home location</span>{{savedCities[defaultId].description}}</a>
+                <span ng-class="{'cloak': !homeForecast}"><i weather-icon clouds="{{homeForecast.currently.cloudCover}}"></i> {{ homeForecast.currently.temperature | temp:isCelsius }}</span>
+                <i data-ng-class="{'cloak': !opts}" data-ng-click="removeCity(defaultId)" class="fa fa-fw fa-trash" title="Delete city"></i>
                 </span>
-            </li>
-        </ul>
+            </div>
 
+            <div class="col-xs-12 col-lg-4">
+                <ul class="menu">
+                    <li><i class="fa fa-thermometer-half fa-fw" title="Temperature format"></i>
+                        <span data-ng-class="{'bold': !isCelsius}" data-ng-click="setTemp('F')">°F</span> |
+                        <span data-ng-class="{'bold': isCelsius}" data-ng-click="setTemp('C')">°C </span></li>
+                    <li><i class="fa fa-rss fa-fw" title="Forecast provider"></i>
+                        <span data-ng-class="{'bold': provider=='WORLD_WEATHER'}" data-ng-click="setProvider('W')">World Weather Online</span>                |
+                        <span data-ng-class="{'bold': provider=='FORECAST_IO'}" data-ng-click="setProvider('F')">Forecast.io</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xs-12 col-lg-8">
+                <ul class="menu">
+                    <li><strong><a style="margin-right:1rem" href="#!/locations">+ add locations</a></strong></li>
+                    <li data-ng-repeat="(id, city) in savedCities" data-ng-show="id!=defaultId">
+                        <a href="#!/dashboard/{{id}}">{{ city.description }}</a>
+                        <span data-ng-class="{'cloak': !opts}">
+                            <i data-ng-hide="id==defaultId" class="fa fa-fw fa-home" title="Set as default" data-ng-click="setDefault(id)"></i>
+                            <i data-ng-click="removeCity(id)" class="fa fa-fw fa-trash" title="Delete city"></i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <div data-ng-view id="ngView" style="margin:2rem">
@@ -58,6 +77,7 @@ In production use:
     <script src="services/apiService.js"></script>
     <script src="services/localStorageService.js"></script>
     <script src="filters/temperature.js"></script>
+    <script src="directives/weatherIconDirective.js"></script>
     <script src="controllers/menuController.js"></script>
     <script src="controllers/cityListController.js"></script>
     <script src="controllers/dashboardController.js"></script>

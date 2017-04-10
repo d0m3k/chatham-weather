@@ -5,20 +5,6 @@ angular.module('chathamWeather.dashboard', [])
         function ($scope, $rootScope, $interval, $routeParams, localStorageService, apiService) {
             init();
 
-            $scope.setTemp = function (temp) {
-                $scope.isCelsius = temp === "C";
-                localStorageService.setIsCelsius($scope.isCelsius);
-                $rootScope.$emit('updateMenu');
-                init();
-            };
-
-            $scope.setProvider = function (provider) {
-                $scope.provider = provider === "F" ? "FORECAST_IO" : "WORLD_WEATHER";
-                localStorageService.setProvider($scope.provider);
-                $rootScope.$emit('updateMenu');
-                init();
-            };
-
             function getForecast() {
                 apiService
                     .getForecast($scope.city.latitude, $scope.city.longitude, $scope.provider)
@@ -56,8 +42,8 @@ angular.module('chathamWeather.dashboard', [])
 
                 if (!$scope.currentCityId) return;
 
-                $scope.isCelsius = localStorageService.getIsCelsius();
-                $scope.provider = localStorageService.getProvider();
+                $rootScope.isCelsius = localStorageService.getIsCelsius();
+                $rootScope.provider = localStorageService.getProvider();
 
                 try {
                     $scope.city = localStorageService.getCityDetails($scope.currentCityId);

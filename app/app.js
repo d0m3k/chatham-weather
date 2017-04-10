@@ -9,6 +9,7 @@
   'chathamWeather.dashboard',
   'chathamWeather.apiService',
   'chathamWeather.temperature',
+  'chathamWeather.weatherIcon',
   'chathamWeather.localStorageService']).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
