@@ -57,3 +57,9 @@ Karma will then start watching over any code changes, providing with tests resul
 [fa]: http://fontawesome.io/
 [weather-icons]: https://erikflowers.github.io/weather-icons/
 [localhost]: http://localhost:8000/
+
+## Bugs and fixes
+
+Not found! But in case API couldn't respond again, just add `/static` at the end of `this.apiAddr` definition on top of `apiService.js`, which can be found in `app/services`. This will fall back to dummy static resources, saved for testing purposes. Cleaning browser cache may be necessary.
+
+Using private mode in Safari causes local storage quota to be roughly around `0`, so using favourites will fail, and temperature/provider preferences will be preserved during current session only.

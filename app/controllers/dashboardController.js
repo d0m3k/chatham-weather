@@ -48,9 +48,6 @@ angular.module('chathamWeather.dashboard', [])
                 if (!$scope.currentCityId && !$scope.serverFailError && !$scope.invalidRequestError)
                     window.location.replace("#!/locations");
 
-                $rootScope.isCelsius = localStorageService.getIsCelsius();
-                $rootScope.provider = localStorageService.getProvider();
-
                 try {
                     $scope.city = localStorageService.getCityDetails($scope.currentCityId);
                     document.title = $scope.city.description + " |  Chatham Weather";
