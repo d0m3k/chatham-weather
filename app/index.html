@@ -9,9 +9,6 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- TODO - cut out before going PROD! -->
-    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
-
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/weather-icons/css/weather-icons.min.css">
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
@@ -31,9 +28,9 @@
             </div>
 
             <div class="col-xs-12 col-lg-4">
-                <span class="home-location" ng-show="defaultId && savedCities">
+                <span class="home-location" data-ng-show="defaultId && savedCities">
                     <a href="#!/dashboard/{{defaultId}}"><span data-ng-show="opts" class="def">home location</span>{{savedCities[defaultId].description}}</a>
-                <span ng-class="{'cloak': !homeForecast}"><i weather-icon clouds="{{homeForecast.currently.cloudCover}}"></i> {{ homeForecast.currently.temperature | temp:isCelsius }}</span>
+                <span data-ng-class="{'cloak': !homeForecast}"><i weather-icon clouds="{{homeForecast.currently.cloudCover}}"></i> {{ homeForecast.currently.temperature | temp:isCelsius }}</span>
                 <i data-ng-class="{'cloak': !opts}" data-ng-click="removeCity(defaultId)" class="fa fa-fw fa-trash" title="Delete city"></i>
                 </span>
             </div>
@@ -57,7 +54,7 @@
                 <li data-ng-repeat="(id, city) in savedCities" data-ng-show="id!=defaultId">
                     <a href="#!/dashboard/{{id}}">{{ city.description }}</a>
                     <span data-ng-class="{'cloak': !opts}">
-                            <i data-ng-hide="id==defaultId" class="fa fa-fw fa-home" title="Set as default" data-ng-click="setDefault(id)"></i>
+                            <i data-ng-hide="id==defaultId" class="fa fa-fw fa-home" title="Set as home location" data-ng-click="setDefault(id)"></i>
                             <i data-ng-click="removeCity(id)" class="fa fa-fw fa-trash" title="Delete city"></i>
                         </span>
                 </li>
@@ -68,14 +65,10 @@
     <div data-ng-view id="ngView" style="margin:2rem">
     </div>
 
-    <!-- TODO - minifize used libraries
-In production use:
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
--->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-cache/dist/angular-cache.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-cache/dist/angular-cache.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app.js"></script>
     <script src="services/apiService.js"></script>

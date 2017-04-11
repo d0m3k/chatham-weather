@@ -33,7 +33,7 @@ describe('temp filter tests', function () {
 
     // then
     expect(result).toEqual('10.0°C');
-  })
+  });
 
   it('Should leave it in Fahrenheit, but without description fiven third parameter', function () {
     // given
@@ -45,5 +45,5 @@ describe('temp filter tests', function () {
 
     // then
     expect(result).toEqual('30');
-  })
+  });
 });

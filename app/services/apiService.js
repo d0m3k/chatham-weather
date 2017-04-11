@@ -4,7 +4,7 @@ angular.module('chathamWeather.apiService',[])
 
     CacheFactory('forecastCache', {
         deleteOnExpire: 'aggressive',
-        maxAge: 30000,
+        maxAge: 30000
     });
     var forecastCache = CacheFactory.get('forecastCache');
 

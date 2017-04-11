@@ -13,7 +13,7 @@ angular.module('chathamWeather.dashboard', [])
 
                         $scope.invalidRequestError = false;
                         $scope.serverFailError = false;
-                    }, function (r) { //failure handler
+                    }, function () { //failure handler
                         $scope.serverFailError = true;
                     });
             }
@@ -45,7 +45,7 @@ angular.module('chathamWeather.dashboard', [])
                     $scope.currentCityId = localStorageService.getDefaultId();
                 }
 
-                if (!$scope.currentCityId && !$scope.serverFailError && !$scope.invalidRequestError) 
+                if (!$scope.currentCityId && !$scope.serverFailError && !$scope.invalidRequestError)
                     window.location.replace("#!/locations");
 
                 $rootScope.isCelsius = localStorageService.getIsCelsius();
@@ -62,24 +62,24 @@ angular.module('chathamWeather.dashboard', [])
 
             $scope.addCity = function (city) {
                 localStorageService.addCity(city);
-                 $rootScope.$emit('updateMenu');
-            }
+                $rootScope.$emit('updateMenu');
+            };
 
             $scope.removeCity = function (city) {
-                 localStorageService.removeCity(city.place_id);
-                 $rootScope.$emit('updateMenu');
-            }
+                localStorageService.removeCity(city.place_id);
+                $rootScope.$emit('updateMenu');
+            };
 
             $scope.setDefault = function (place_id) {
-                 localStorageService.setDefaultId(place_id);
-                 $rootScope.$emit('updateMenu');
-            }
+                localStorageService.setDefaultId(place_id);
+                $rootScope.$emit('updateMenu');
+            };
 
-            var refreshInterval = $interval(function() {
+            var refreshInterval = $interval(function () {
                 getForecast();
-            }, 60*1000);
+            }, 60 * 1000);
 
-            $scope.$on('$destroy', function(){
+            $scope.$on('$destroy', function () {
                 $interval.cancel(refreshInterval);
             });
         }

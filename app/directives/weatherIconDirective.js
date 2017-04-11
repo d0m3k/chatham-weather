@@ -8,7 +8,6 @@ angular.module('chathamWeather.weatherIcon', [])
         night: '=night'
       },
       link: function(scope, element, attrs) {
-        // TODO - little [but favourable] touch would be checking what time is it, if night is not provided... ;)
         attrs.$observe('clouds', function (clouds) {
 
           element.removeAttr("class");

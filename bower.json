@@ -1,9 +1,8 @@
 {
   "name": "chatham-weather",
-  "description": "Weather reolution",
+  "description": "Weather revolution",
   "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
-  "license": "MIT",
+  "homepage": "https://github.com/d0m3k/chatham-weather",
   "private": true,
   "dependencies": {
     "angular": "~1.5.0",

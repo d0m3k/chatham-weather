@@ -17,10 +17,9 @@ angular.module('chathamWeather.formatDate', [])
     return {
       restrict: 'A',
       link: function (scope, element, attrs) {
-        // TODO - little [but favourable] touch would be checking what time is it, if night is not provided... ;)
         attrs.$observe('date', function (date) {
             element.text(daysOfWeek[new Date(date).getDay()]);
         });
       }
     }
-  })
+  });

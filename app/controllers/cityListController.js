@@ -5,14 +5,13 @@ angular.module('chathamWeather.cityList', [])
         function ($scope, $rootScope, $route, $routeParams, apiService, localStorageService) {
             document.title = "Chatham Weather";
 
-
             $scope.filterCities = function () {
                 apiService.searchByName($scope.search.city)
                     .then(function (r) { //success handler
                         $scope.search.results = r.data.predictions;
-                        
+
                         $scope.serverError = false;
-                    }, function (r) { ///failure handler
+                    }, function () { ///failure handler
                         $scope.serverError = true;
                     })
             };
@@ -21,7 +20,7 @@ angular.module('chathamWeather.cityList', [])
                 $route.updateParams({
                     searchCity: $scope.search.city
                 });
-            }
+            };
 
             $scope.search = {};
             $scope.search.city = $routeParams.searchCity;

@@ -20,8 +20,6 @@ Storage.prototype.getObject = function (key) {
 
 angular.module('chathamWeather.localStorageService', [])
     .service('localStorageService', function () {
-        // TODO - handle not having local storage
-        // TODO - fallback to cookies if LS not available
 
         this.getCityList = function () {
             var storage = localStorage.getObject("cityList");
@@ -41,7 +39,6 @@ angular.module('chathamWeather.localStorageService', [])
             try {
                 return storage.cities[place_id];
             } catch (err) {
-                console.log("Didn't get city!");
                 throw "No city in storage.";
             }
         };
